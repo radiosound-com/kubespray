@@ -1,6 +1,6 @@
 ---
 metallb:
-  ip_range: "10.5.0.50-10.5.0.99"
+  ip_range: "192.168.1.45-192.168.1.45"
   limits:
     cpu: "100m"
     memory: "100Mi"
