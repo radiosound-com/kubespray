@@ -72,6 +72,19 @@ mount /dev/vdb1 /mnt/disks/ssd1
 Physical disks are recommended for production environments because it offers
 complete isolation in terms of I/O and capacity.
 
+### Mount unpartitioned physical devices
+
+
+``` bash
+for disk in /dev/sdc /dev/sdd /dev/sde; do
+  ln -s $disk /mnt/disks
+done
+```
+
+This saves time of precreatnig filesystems. Note that your storageclass must have
+volume_mode set to "Filesystem" and fs_type defined. If either is not set, the
+disk will be added as a raw block device.
+
 ### File-backed sparsefile method
 
 ``` bash
@@ -92,7 +105,7 @@ management.
 ### Block volumeMode PVs
 
 Create a symbolic link under discovery directory to the block device on the node. To use
-raw block devices in pods BlockVolume feature gate must be enabled.
+raw block devices in pods, volume_type should be set to "Block".
 
 Usage notes
 -----------
@@ -105,7 +118,7 @@ delete the daemonset pod on the relevant host after creating volumes. The pod
 will be recreated and read the size correctly.
 
 Make sure to make any mounts persist via /etc/fstab or with systemd mounts (for
-CoreOS/Container Linux). Pods with persistent volume claims will not be
+CoreOS/Container Linux and Flatcar). Pods with persistent volume claims will not be
 able to start if the mounts become unavailable.
 
 Further reading

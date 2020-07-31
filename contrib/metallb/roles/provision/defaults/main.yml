@@ -1,6 +1,14 @@
 ---
 metallb:
-  ip_range: "192.168.1.45-192.168.1.45"
+  ip_range:
+    - "192.168.1.22"
+  protocol: "layer2"
+  # additional_address_pools:
+  #   kube_service_pool:
+  #     ip_range:
+  #       - 10.5.1.50-10.5.1.99"
+  #     protocol: "layer2"
+  #     auto_assign: false
   limits:
     cpu: "100m"
     memory: "100Mi"
