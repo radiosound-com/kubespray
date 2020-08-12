@@ -99,3 +99,4 @@ loadbalancer_apiserver_healthcheck_port: 8081
 
 download_run_once: True
 download_localhost: True
+download_cache_dir: "{{ ansible_env.HOME | default('/root') }}/kubespray_cache"
