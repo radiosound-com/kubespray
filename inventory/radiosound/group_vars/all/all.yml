@@ -120,3 +120,6 @@ no_proxy_exclude_workers: false
 download_run_once: True
 download_localhost: True
 download_cache_dir: /home/build/kubespray_cache
+
+# i am really tired of the dashboard logging me out every 15 minutes
+dashboard_token_ttl: 43200
