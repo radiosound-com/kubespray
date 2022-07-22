@@ -14,7 +14,8 @@ docker_container_storage_setup: false
 ## Valid options are systemd or cgroupfs, default is systemd
 # docker_cgroup_driver: systemd
 
-## Uncomment this if you have more than 3 nameservers, then we'll only use the first 3.
+## Only set this if you have more than 3 nameservers:
+## If true Kubespray will only use the first 3, otherwise it will fail
 docker_dns_servers_strict: false
 
 # Path used to store Docker data
@@ -57,3 +58,5 @@ docker_rpm_keepcache: 1
 ## This string should be exactly as you wish it to appear.
 # docker_options: ""
 
+## Use CRI-DockerD instead of dockershim
+# cri_dockerd_enabled: false
