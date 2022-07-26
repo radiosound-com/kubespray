@@ -22,6 +22,7 @@ inventory/*
 !inventory/local
 !inventory/sample
 !inventory/radiosound
+!inventory/test
 inventory/*/artifacts/
 
 # Byte-compiled / optimized / DLL files
