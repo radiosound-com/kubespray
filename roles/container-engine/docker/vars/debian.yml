@@ -10,6 +10,7 @@ containerd_versioned_pkg:
   '1.4.9': "{{ containerd_package }}=1.4.9-1"
   '1.4.12': "{{ containerd_package }}=1.4.12-1"
   '1.6.4': "{{ containerd_package }}=1.6.4-1"
+  '1.6.20': "{{ containerd_package }}=1.6.20-1"
   'stable': "{{ containerd_package }}=1.6.4-1"
   'edge': "{{ containerd_package }}=1.6.4-1"
 
