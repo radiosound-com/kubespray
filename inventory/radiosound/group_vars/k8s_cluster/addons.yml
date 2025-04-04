@@ -162,13 +162,22 @@ cert_manager_enabled: false
 # MetalLB deployment
 # MetalLB deployment
 metallb_enabled: true
-metallb_speaker_enabled: false
-metallb_version: v0.13.9
+metallb_speaker_enabled: true
+metallb_namespace: "metallb-system"
+metallb_version: v0.13.12
 metallb_protocol: "layer2"
 metallb_port: "7472"
 metallb_memberlist_port: "7946"
 metallb_config:
   controller:
+    nodeselector:
+      kubernetes.io/os: linux
+    tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Equal"
+      value: ""
+      effect: "NoSchedule"
+  speaker:
     nodeselector:
       kubernetes.io/os: linux
     tolerations:
