@@ -160,15 +160,22 @@ cert_manager_enabled: false
 # cert_manager_leader_election_namespace: kube-system
 
 # MetalLB deployment
+# MetalLB deployment
 metallb_enabled: true
-metallb_speaker_enabled: true
-metallb_ip_range:
-  - "192.168.1.22-192.168.1.22"
-# When using BGP and calico >= 3.18 you can replace MetalLB speaker by calico Service LoadBalancer IP advertisement. set speaker enabled false and uncomment this if BGP
-#calico_advertise_service_loadbalancer_ips: "{{ metallb_ip_range }}"
-metallb_version: v0.12.1
-metallb_protocol: "layer2"
-metallb_port: "7472"
+metallb_speaker_enabled: "{{ metallb_enabled }}"
+metallb_speaker_nodeselector:
+  kubernetes.io/os: "linux"
+metallb_controller_nodeselector:
+  kubernetes.io/os: "linux"
+metallb_speaker_tolerations:
+  - key: "node-role.kubernetes.io/master"
+    operator: "Equal"
+    value: ""
+    effect: "NoSchedule"
+  - key: "node-role.kubernetes.io/control-plane"
+    operator: "Equal"
+    value: ""
+    effect: "NoSchedule"
 metallb_controller_tolerations:
   - key: "node-role.kubernetes.io/master"
     operator: "Equal"
@@ -178,22 +185,18 @@ metallb_controller_tolerations:
     operator: "Equal"
     value: ""
     effect: "NoSchedule"
-#metallb_limits_cpu: "100m"
-#metallb_limits_mem: "100Mi"
-# metallb_additional_address_pools:
-#   kube_service_pool:
-#     ip_range:
-#       - "10.5.1.50-10.5.1.99"
-#     protocol: "layer2"
-#     auto_assign: false
-# metallb_protocol: "bgp"
-# metallb_peers:
-#   - peer_address: 192.0.2.1
-#     peer_asn: 64512
-#     my_asn: 4200000000
-#   - peer_address: 192.0.2.2
-#     peer_asn: 64513
-#     my_asn: 4200000000
+metallb_version: v0.13.9
+metallb_protocol: "layer2"
+metallb_port: "7472"
+metallb_memberlist_port: "7946"
+metallb_config:
+  address_pools:
+    primary:
+      ip_range:
+        - 192.168.1.22-192.168.1.22
+      auto_assign: true
+  layer2:
+    - primary
 
 
 argocd_enabled: false
