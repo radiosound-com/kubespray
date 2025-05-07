@@ -21,7 +21,7 @@ kube_api_anonymous_auth: true
 
 # dwf: hack to get us up to 2.23
 docker_version: "latest"
-docker_containerd_version: "1.6.20"
+#docker_containerd_version: "1.6.20"
 
 # Where the binaries will be downloaded.
 # Note: ensure that you've enough disk space (about 1G)
