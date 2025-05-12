@@ -1,9 +1,6 @@
 ---
 # see roles/network_plugin/calico/defaults/main.yml
 
-# https://github.com/kubernetes-sigs/kubespray/pull/8434#issuecomment-1093453662
-#calico_version: "v3.23.1"
-
 # the default value of name
 calico_cni_name: k8s-pod-network
 
@@ -14,6 +11,7 @@ calico_cni_name: k8s-pod-network
 
 # Enables Internet connectivity from containers
 # nat_outgoing: true
+# nat_outgoing_ipv6: false
 
 # Enables Calico CNI "host-local" IPAM plugin
 # calico_ipam_host_local: true
@@ -21,8 +19,8 @@ calico_cni_name: k8s-pod-network
 # add default ippool name
 # calico_pool_name: "default-pool"
 
-# add default ippool blockSize (defaults kube_network_node_prefix)
-calico_pool_blocksize: 24
+# add default ippool blockSize
+calico_pool_blocksize: 26
 
 # add default ippool CIDR (must be inside kube_pods_subnet, defaults to kube_pods_subnet otherwise)
 # calico_pool_cidr: 1.2.3.4/5
@@ -63,7 +61,7 @@ calico_pool_blocksize: 24
 # - x.x.x.x/24
 # - y.y.y.y/32
 
-# Adveritse Service LoadBalancer IPs
+# Advertise Service LoadBalancer IPs
 # calico_advertise_service_loadbalancer_ips:
 # - x.x.x.x/24
 # - y.y.y.y/16
@@ -89,9 +87,9 @@ calico_pool_blocksize: 24
 
 # Set calico network backend: "bird", "vxlan" or "none"
 # bird enable BGP routing, required for ipip and no encapsulation modes
-calico_network_backend: bird
+# calico_network_backend: vxlan
 
-# IP in IP and VXLAN is mutualy exclusive modes.
+# IP in IP and VXLAN is mutually exclusive modes.
 # set IP in IP encapsulation mode: "Always", "CrossSubnet", "Never"
 calico_ipip_mode: 'Always'
 
@@ -106,7 +104,7 @@ calico_vxlan_mode: 'Never'
 # calico_vxlan_vni: 4096
 # calico_vxlan_port: 4789
 
-# Cenable eBPF mode
+# Enable eBPF mode
 # calico_bpf_enabled: false
 
 # If you want to use non default IP_AUTODETECTION_METHOD, IP6_AUTODETECTION_METHOD for calico node set this option to one of:
@@ -115,6 +113,10 @@ calico_vxlan_mode: 'Never'
 # see https://docs.projectcalico.org/reference/node/configuration
 # calico_ip_auto_method: "interface=eth.*"
 # calico_ip6_auto_method: "interface=eth.*"
+
+# Set FELIX_MTUIFACEPATTERN, Pattern used to discover the host’s interface for MTU auto-detection.
+# see https://projectcalico.docs.tigera.io/reference/felix/configuration
+# calico_felix_mtu_iface_pattern: "^((en|wl|ww|sl|ib)[opsx].*|(eth|wlan|wwan).*)"
 
 # Choose the iptables insert mode for Calico: "Insert" or "Append".
 # calico_felix_chaininsertmode: Insert
